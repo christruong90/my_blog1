@@ -13,6 +13,7 @@ before_action :authenticate_user!, except: [:index, :show]
   def create
     post_params = params.require(:post).permit(:title, :body)
     @post = Post.new post_params
+    @post.user    = current_user
       if @post.save
         redirect_to post_path(@post)
       else
@@ -48,6 +49,10 @@ before_action :authenticate_user!, except: [:index, :show]
 end
 
 private
+
+def authorize_owner
+    redirect_to root_path, alert: "access denied" unless can? :manage, @post
+end
 
 def authenticate_user!
   redirect_to new_session_path, alert: "please sign in" unless user_signed_in?

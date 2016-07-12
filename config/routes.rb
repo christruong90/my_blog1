@@ -1,17 +1,28 @@
 Rails.application.routes.draw do
 
+  root "home#index"
+
   resources :sessions, only: [:new, :create] do
     delete :destroy, on: :collection
   end
 
-  resources :users, only: [:new, :create]
-
-  root "home#index"
   resources :posts do
     resources :comments#, only: [:create, :destroy]
+    resources :favourites, only: [:create, :destroy]
+
   end
 
-  get '/about' => "home#about"
+  resources :favourites, only: [:index]
+
+  get "/users/edit_password/:id" => "users#edit_password", as: :edit_password
+
+  patch "/users/:id" => "users#update_password", as: :update_password
+
+  get "/about" => "home#about"
+
+  resources :users, only: [:new, :create, :edit, :update, :update_password, :edit_password]
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

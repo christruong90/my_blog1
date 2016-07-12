@@ -12,7 +12,8 @@ class CommentsController < ApplicationController
     @post = Post.find params[:post_id]
     comment_params = params.require(:comment).permit(:body)
     @comment = Comment.new comment_params
-    @comment.post = @post 
+    @comment.user    = current_user
+    @comment.post = @post
     if @comment.save
       redirect_to post_path(@post), notice: "comment created"
     else
@@ -40,7 +41,7 @@ class CommentsController < ApplicationController
 
   def destroy
     @post = Post.find params[:post_id]
-    @comment = Post.find params[:id]
+    @comment = Comment.find params[:id]
     @comment.destroy
     redirect_to post_path(@post), notice: "comment deleted"
   end

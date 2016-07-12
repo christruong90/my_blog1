@@ -1,0 +1,15 @@
+<%= form_for @user, url: user_path(@user) do |f| %>
+  <div>
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name %>
+  </div>
+  <div>
+    <%= f.label :last_name %>
+    <%= f.text_area :last_name %>
+  </div>
+  <div>
+    <%= f.label :email %>
+    <%= f.email_field :email %>
+  </div>
+  <%= f.submit %>
+<% end %>

@@ -1,10 +1,23 @@
 <h1><%= @post.title.titleize %></h1>
 <p><%= @post.body %></p>
+<p>Created by: <%= @post.user.full_name if @post.user %> </p>
 
-<%= link_to "Edit", edit_post_path(@post) %>
-<%= link_to "Delete", post_path(@post),
+<% if @post.favourited_by?(current_user) %>
+  <%= link_to "Un-favourite", post_favourite_path(@post, @post.favourite_for(current_user)), method: :delete %>
+<% else %>
+  <%= link_to "Favourite",
+            post_favourites_path(@post),
+            method: :post %>
+<% end %>
+
+<% if can? :edit, @post %>
+  <%= link_to "Edit", edit_post_path(@post) %>
+<% end %>
+<% if can? :destroy, @post %>
+  <%= link_to "Delete", post_path(@post),
                       method: :delete,
                       data:   {confirm: "Are you sure?"} %>
+<% end %>
 
 <%= @comment.errors.full_messages.join(", ") %>
 <%= form_for [@post, @comment] do |f| %>
@@ -15,6 +28,8 @@
 <h2> the comments </h2>
 <% @post.comments.each do |com| %>
   <%= com.body %>
-  <%= link_to "Delete Comment", [@post, com],          method: :delete, data: {confirm: "Are you sure?"} %>
+  <% if can?(:destroy, @post) || can?(:destroy, com) %>
+    <%= link_to "Delete Comment", [@post, com], method: :delete, data: {confirm: "Are you sure?"} %>
+  <% end %>
   <hr>
 <% end %>

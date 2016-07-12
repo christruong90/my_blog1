@@ -13,16 +13,20 @@
     |
     <%= link_to "My Posts", posts_path %>
     |
+    <!-- <%= link_to "Create A Post", new_post_path %> -->
+    <!-- | -->
 
 
     <% if session[:user_id] %>
-      Hello <%= User.find(session[:user_id]).first_name + " " +
-      User.find(session[:user_id]).last_name
-       %>
+      Hello <%= link_to current_user.full_name, edit_user_path(current_user) %>
        |
        <%= link_to "Sign Out", sessions_path, method: :delete, data: {confirm: "are you sure you want to log out?"} %>
         |
        <%= link_to "Create a Post", new_post_path %>
+       |
+       <%= link_to "Your Favourite Posts", favourites_path %>
+       |
+       <%= link_to "Change Password", edit_password_path(current_user) %>
 
       <% else %>
         <%= link_to "Sign Up", new_user_path %>
