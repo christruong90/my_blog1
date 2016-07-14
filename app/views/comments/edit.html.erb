@@ -1,7 +1,7 @@
 <%= @comment.errors.full_messages.join(", ") %>
 <%# if @question is persisted then the `form_for` helper will make the action submit to question_path(@question) and it will make the HTTP request PATCH.
 form_for will also prepopulate the fields with the data fetched from the database%>
-<%= form_for @comment do |f| %>
+<%= form_for [@comment.post, @comment] do |f| %>
 
   <div>
     <%= f.label :body %>

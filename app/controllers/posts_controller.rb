@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-
-before_action :authenticate_user!, except: [:index, :show]
+  before_action :find_post, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @posts = Post.order("created_at DESC")
@@ -24,24 +24,23 @@ before_action :authenticate_user!, except: [:index, :show]
   end
 
   def show
-    @post = Post.find params[:id]
     @comment = Comment.new
   end
 
   def destroy
-    @post = Post.find params[:id]
     @post.destroy
     redirect_to posts_path
   end
 
   def edit
-    @post = Post.find params[:id]
+    redirect_to root_path, alert: "access defined" unless can? :edit, @post
   end
 
   def update
     @post = Post.find params[:id]
     post_params = params.require(:post).permit(:title, :body, :tag_ids)
     @post.tag_ids   = params[:post][:tag_ids]
+
     if @post.update post_params
       redirect_to post_path(@post)
     else
@@ -49,14 +48,19 @@ before_action :authenticate_user!, except: [:index, :show]
     end
   end
 
-end
 
-private
 
-def authorize_owner
-    redirect_to root_path, alert: "access denied" unless can? :manage, @post
-end
+  private
 
-def authenticate_user!
-  redirect_to new_session_path, alert: "please sign in" unless user_signed_in?
+  def authorize_owner
+      redirect_to root_path, alert: "access denied" unless can? :manage, @post
+  end
+
+  def authenticate_user!
+    redirect_to new_session_path, alert: "please sign in" unless user_signed_in?
+  end
+
+  def find_post
+    @post = Post.find params[:id]
+  end
 end
