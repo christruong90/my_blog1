@@ -17,7 +17,11 @@ class User < ActiveRecord::Base
   # User.find(session[:user_id]).first_name + " " +
   #   User.find(session[:user_id]).last_name
   #   end
+  after_validation :set_admin
 
+  def set_admin
+    self.admin ||= false
+  end
 
   def full_name
     "#{first_name} #{last_name}"

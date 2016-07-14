@@ -28,6 +28,9 @@
 <h2> the comments </h2>
 <% @post.comments.each do |com| %>
   <%= com.body %>
+  <% if can?(:edit, @post) || can?(:edit, com) %>
+    <%= link_to "Edit", edit_post_comment_path(@post, com) %>
+<% end %>
   <% if can?(:destroy, @post) || can?(:destroy, com) %>
     <%= link_to "Delete Comment", [@post, com], method: :delete, data: {confirm: "Are you sure?"} %>
   <% end %>

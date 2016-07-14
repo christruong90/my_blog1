@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   get "/users/edit_password/:id" => "users#edit_password", as: :edit_password
 
-  patch "/users/:id" => "users#update_password", as: :update_password
+  patch "/users_password/:id" => "users#update_password", as: :update_password
 
   get "/about" => "home#about"
 
