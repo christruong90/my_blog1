@@ -46,6 +46,7 @@ group :development, :test do
   gem "rails-erd"
   gem "pry"
   gem "pry-rails"
+  gem 'simple_form'
 end
 
 group :development do

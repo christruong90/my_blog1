@@ -8,3 +8,7 @@
 ["Life", "electronics", "clothes", "tools", "automotive", "games", "finance", "NSFW", "Relationships", "Pets"].each do |cat|
   Category.create title: cat
 end
+
+["Life", "electronics", "clothes", "tools", "automotive", "games", "finance", "NSFW", "Relationships", "Pets"].each do |tag|
+  Tag.create name: tag
+end

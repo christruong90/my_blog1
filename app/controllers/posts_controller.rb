@@ -11,8 +11,10 @@ before_action :authenticate_user!, except: [:index, :show]
   end
 
   def create
-    post_params = params.require(:post).permit(:title, :body)
+    puts params.inspect
+    post_params = params.require(:post).permit(:title, :body, :tag_ids)
     @post = Post.new post_params
+    @post.tag_ids   = params[:post][:tag_ids]
     @post.user    = current_user
       if @post.save
         redirect_to post_path(@post)
@@ -38,7 +40,8 @@ before_action :authenticate_user!, except: [:index, :show]
 
   def update
     @post = Post.find params[:id]
-    post_params = params.require(:post).permit(:title, :body)
+    post_params = params.require(:post).permit(:title, :body, :tag_ids)
+    @post.tag_ids   = params[:post][:tag_ids]
     if @post.update post_params
       redirect_to post_path(@post)
     else
