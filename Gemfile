@@ -45,6 +45,7 @@ group :development, :test do
   gem 'awesome_print'
   gem "rails-erd"
   gem "pry"
+  gem 'delayed_job_active_record'
   gem "pry-rails"
   gem 'simple_form'
   gem "letter_opener"
