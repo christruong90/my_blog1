@@ -47,6 +47,7 @@ group :development, :test do
   gem "pry"
   gem "pry-rails"
   gem 'simple_form'
+  gem "letter_opener"
 end
 
 group :development do
