@@ -10,16 +10,21 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @post = Post.find params[:post_id]
-    comment_params = params.require(:comment).permit(:body)
-    @comment = Comment.new comment_params
-    @comment.user    = current_user
-    @comment.post = @post
-    if @comment.save
-      CommentsMailer.notify_post_owner(@comment).deliver_later
-      redirect_to post_path(@post), notice: "comment created"
-    else
-      render "/posts/show"
+    @post             = Post.find params[:post_id]
+    comment_params    = params.require(:comment).permit(:body)
+    @comment          = Comment.new comment_params
+    @comment.user     = current_user
+    @comment.post     = @post
+
+    respond_to do |format|
+      if @comment.save
+        CommentsMailer.notify_post_owner(@comment).deliver_later
+        format.html {redirect_to post_path(@post), notice: "comment created"}
+        format.js {render :create_success}
+      else
+        format.html {render "/posts/show"}
+        format.js {render :create_failure}
+      end
     end
   end
 
@@ -45,7 +50,11 @@ class CommentsController < ApplicationController
     @comment = Comment.find params[:id]
     redirect_to root_path, alert: "access defined" unless can? :destroy, @comment
     @comment.destroy
-    redirect_to post_path(@post), notice: "comment deleted"
+
+    respond_to do |format|
+      format.html {redirect_to post_path(@post), notice: "comment deleted"}
+      format.js {render}
+    end
   end
 
 private

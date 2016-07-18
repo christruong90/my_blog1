@@ -12,10 +12,10 @@ class PostsController < ApplicationController
 
   def create
     puts params.inspect
-    post_params = params.require(:post).permit(:title, :body, :tag_ids)
-    @post = Post.new post_params
+    post_params     = params.require(:post).permit(:title, :body, :tag_ids)
+    @post           = Post.new post_params
     @post.tag_ids   = params[:post][:tag_ids]
-    @post.user    = current_user
+    @post.user      = current_user
       if @post.save
         redirect_to post_path(@post)
       else
@@ -37,17 +37,17 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find params[:id]
+    @post = Post.friendly.find params[:id]
     post_params = params.require(:post).permit(:title, :body, :tag_ids)
     @post.tag_ids   = params[:post][:tag_ids]
+    @post.slug = nil
 
     if @post.update post_params
-      redirect_to post_path(@post)
+      redirect_to post_path(@post), notice: 'post updated!'
     else
       render :edit
     end
   end
-
 
 
   private
@@ -61,6 +61,6 @@ class PostsController < ApplicationController
   end
 
   def find_post
-    @post = Post.find params[:id]
+    @post = Post.friendly.find params[:id]
   end
 end

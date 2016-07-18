@@ -1,6 +1,10 @@
 class Post < ActiveRecord::Base
     validates(:title, {presence: {message: "must be present!"}, uniqueness: true})
 
+    extend FriendlyId
+    friendly_id :title, use: [:slugged, :history]
+
+
     belongs_to :category
     belongs_to :user
 
@@ -32,5 +36,9 @@ class Post < ActiveRecord::Base
     def all_tags
       self.tags.map(&:name).join(", ")
     end
+
+    # def to_param
+    #     "#{id}-#{title}".parameterize
+    # end
 
 end

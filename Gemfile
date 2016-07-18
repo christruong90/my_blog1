@@ -49,6 +49,7 @@ group :development, :test do
   gem "pry-rails"
   gem 'simple_form'
   gem "letter_opener"
+  gem "friendly_id"
 end
 
 group :development do

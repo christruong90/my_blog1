@@ -1,0 +1,10 @@
+<div id="<%= dom_id(comment) %>">
+<%= comment.body %>
+<% if can?(:edit, @post) || can?(:edit, comment) %>
+  <%= link_to "Edit", edit_post_comment_path(@post, comment) %>
+<% end %>
+<% if can?(:destroy, @post) || can?(:destroy, comment) %>
+  <%= link_to "Delete Comment", [@post, comment], method: :delete, data: {confirm: "Are you sure?"} %>
+<% end %>
+  <hr>
+</div>

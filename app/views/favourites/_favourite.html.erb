@@ -1,0 +1,10 @@
+<div id='favourite-form'>
+<% if @post.favourited_by?(current_user) %>
+  <%= link_to "Un-favourite", post_favourite_path(@post, @post.favourite_for(current_user)), remote: true, method: :delete %>
+<% else %>
+  <%= link_to "Favourite",
+            post_favourites_path(@post),
+            remote: true,
+            method: :post %>
+<% end %>
+</div>

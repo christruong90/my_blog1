@@ -4,4 +4,9 @@ class Favourite < ActiveRecord::Base
 
   validates :user_id, uniqueness: {scope: :post_id}
 
+
+  def favourited_by?(user)
+    favourites.exists?(user: user)
+  end
+  
 end
