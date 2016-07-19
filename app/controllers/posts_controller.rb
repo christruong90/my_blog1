@@ -12,7 +12,7 @@ class PostsController < ApplicationController
 
   def create
     puts params.inspect
-    post_params     = params.require(:post).permit(:title, :body, :tag_ids)
+    post_params     = params.require(:post).permit(:title, :body, :tag_ids, :avatar)
     @post           = Post.new post_params
     @post.tag_ids   = params[:post][:tag_ids]
     @post.user      = current_user

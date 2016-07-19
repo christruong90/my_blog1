@@ -2,7 +2,16 @@
 <p><%= @post.body %></p>
 <p>Created by: <%= @post.user.full_name if @post.user %> </p>
 <p> Tags: <%= @post.tags.map {|t| t.name.capitalize }.join(", ") %></p>
+<%= form_for @post, html: { multipart: true } do |f| %>
 
+<p>
+  <label>My Avatar</label>
+  <%= image_tag(@post.avatar_url) if @post.avatar? %>
+  <%= f.file_field :avatar %>
+  <%= f.hidden_field :avatar_cache %>
+</p>
+
+<% end %>
 <div id='favourite-form'>
   <%=render '/favourites/favourite' %>
 </div>

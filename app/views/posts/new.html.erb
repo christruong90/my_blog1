@@ -14,5 +14,15 @@ form_for will also prepopulate the fields with the data fetched from the databas
   <div>
     <%= f.association :tags, {collection: Tag.all, as: :check_boxes} %>
   </div>
+  <div>
+  <%= f.file_field :avatar %>
+</div>
+<p>
+  <label>
+    <%= f.check_box :remove_avatar %>
+    Remove avatar
+  </label>
+</p>
+
   <%= f.submit({class: "btn btn-primary"}) %>
 <% end %>
