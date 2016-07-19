@@ -39,17 +39,20 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'faker'
+  gem "font-awesome-rails"
   gem 'factory_girl_rails'
   gem 'hirb'
   gem 'interactive_editor'
   gem 'awesome_print'
   gem "rails-erd"
-  gem "pry"
+  # gem "pry"
+  gem "carrierwave"
   gem 'delayed_job_active_record'
-  gem "pry-rails"
+  # gem "pry-rails"
   gem 'simple_form'
   gem "letter_opener"
   gem "friendly_id"
+  gem "bootstrap-sass"
 end
 
 group :development do

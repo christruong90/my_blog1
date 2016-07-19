@@ -10,11 +10,10 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @post             = Post.find params[:post_id]
+    @post             = Post.find_by_title params[:post_id]
     comment_params    = params.require(:comment).permit(:body)
-    @comment          = Comment.new comment_params
+    @comment          = @post.comments.new comment_params
     @comment.user     = current_user
-    @comment.post     = @post
 
     respond_to do |format|
       if @comment.save
@@ -46,7 +45,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @post = Post.find params[:post_id]
+    @post = Post.find_by_title params[:post_id]
     @comment = Comment.find params[:id]
     redirect_to root_path, alert: "access defined" unless can? :destroy, @comment
     @comment.destroy

@@ -5,17 +5,14 @@ form_for will also prepopulate the fields with the data fetched from the databas
 <div>
   <%= f.collection_select :category_id, Category.order(:title), :id, :title %>
 </div>
-
+<div>
+  <%= f.input :title, placeholder: "Title of your post" %>
+</div>
   <div>
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
-  <div>
-    <%= f.label :body %>
-    <%= f.text_area :body %>
+  <%= f.input :title, placeholder: "Body of your post" %>
   </div>
   <div>
     <%= f.association :tags, {collection: Tag.all, as: :check_boxes} %>
   </div>
-  <%= f.submit %>
+  <%= f.submit({class: "btn btn-primary"}) %>
 <% end %>

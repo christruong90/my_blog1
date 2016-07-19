@@ -7,7 +7,7 @@ class FavouritesController < ApplicationController
   end
 
   def create
-    @post = Post.find params[:post_id]
+    @post = Post.find_by_title params[:post_id]
     f = Favourite.create(post: @post, user: current_user)
 
     respond_to do |format|
@@ -19,7 +19,7 @@ class FavouritesController < ApplicationController
 
   def destroy
     favourite = Favourite.find params[:id]
-    post = Post.find params[:post_id]
+    @post = Post.find_by_title params[:post_id]
     favourite.destroy if can? :destroy, Favourite
 
     respond_to do |format|
