@@ -5,10 +5,9 @@
 <%= form_for @post, html: { multipart: true } do |f| %>
 
 <p>
-  <label>My Avatar</label>
+  <label>My Avatar:</label>
+  <br>
   <%= image_tag(@post.avatar_url) if @post.avatar? %>
-  <%= f.file_field :avatar %>
-  <%= f.hidden_field :avatar_cache %>
 </p>
 
 <% end %>
