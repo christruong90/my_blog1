@@ -28,7 +28,21 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'cancancan', '~> 1.10'
 gem 'rails_12factor', group: :production
-
+gem 'hirb'
+gem 'interactive_editor'
+gem 'awesome_print'
+gem "rails-erd"
+# gem "pry"
+gem "carrierwave"
+gem 'delayed_job_active_record'
+# gem "pry-rails"
+gem 'simple_form'
+gem "letter_opener"
+gem "friendly_id"
+gem "bootstrap-sass"
+gem 'rspec-rails'
+gem 'faker'
+gem "font-awesome-rails"
 # Use Unicorn as the app server
 # gem 'unicorn'
 
@@ -38,22 +52,9 @@ gem 'rails_12factor', group: :production
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
-  gem 'rspec-rails'
-  gem 'faker'
-  gem "font-awesome-rails"
+
   gem 'factory_girl_rails'
-  gem 'hirb'
-  gem 'interactive_editor'
-  gem 'awesome_print'
-  gem "rails-erd"
-  # gem "pry"
-  gem "carrierwave"
-  gem 'delayed_job_active_record'
-  # gem "pry-rails"
-  gem 'simple_form'
-  gem "letter_opener"
-  gem "friendly_id"
-  gem "bootstrap-sass"
+
 end
 
 group :development do
